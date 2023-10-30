@@ -8,29 +8,35 @@ using System.Linq;
 using Utilities.WebRequestRest;
 using UnityEngine.Events;
 using TMPro;
+using System;
+using System.Threading.Tasks;
+
+[System.Serializable]
+public class OnOpenAIChatResponseEvent : UnityEvent<string> { }
 
 public class OpenAIChatCompletion : MonoBehaviour
 {
-    public OnResponseEvent OnResponse;
-
-    [System.Serializable]
-    public class OnResponseEvent : UnityEvent<string> { }
-
-    public TextMeshProUGUI InputMessage;
+    public OnOpenAIChatResponseEvent OnOpenAIChatResponse;
+    public TMP_InputField InputMessage;
 
     private OpenAIClient api;
-
     private List<Message> messages = new List<Message>();
 
     public async void PromptGPT3_5Model()
     {
+        if (string.IsNullOrEmpty(InputMessage.text))
+        {
+            Debug.LogError("Input message is null or empty");
+            return;
+        }
+
         Message userMessage = new Message(Role.System, InputMessage.text);
         messages.Add(userMessage);
 
         var chatRequest = new ChatRequest(messages, Model.GPT3_5_Turbo);
         var result = await api.ChatEndpoint.GetCompletionAsync(chatRequest);
 
-        OnResponse?.Invoke(result);
+        OnOpenAIChatResponse?.Invoke(result);
     }
 
     void Start()

@@ -479,7 +479,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6982deaa3d49ddd42a897a82164e1707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnResponse:
+  OnOpenAIChatResponse:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 496477107}
@@ -494,7 +494,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  InputMessage: {fileID: 847643825}
+  InputMessage: {fileID: 896250043}
 --- !u!1 &496477105
 GameObject:
   m_ObjectHideFlags: 0
