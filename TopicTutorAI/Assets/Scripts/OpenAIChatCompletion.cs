@@ -16,22 +16,17 @@ public class OnOpenAIChatResponseEvent : UnityEvent<string> { }
 
 public class OpenAIChatCompletion : MonoBehaviour
 {
-    public OnOpenAIChatResponseEvent OnOpenAIChatResponse;
-    public TMP_InputField InputMessage;
-
+    [SerializeField]
+    private QuizzProperties quizzProperties;
     private OpenAIClient api;
     private List<Message> messages = new List<Message>();
 
+    public OnOpenAIChatResponseEvent OnOpenAIChatResponse;
+
     public async void PromptGPT3_5Model()
     {
-        if (string.IsNullOrEmpty(InputMessage.text))
-        {
-            Debug.LogError("Input message is null or empty");
-            return;
-        }
-
-        Message userMessage = new Message(Role.System, InputMessage.text);
-        messages.Add(userMessage);
+        Message userMessage = new Message(Role.System, quizzProperties.Prompt);
+        this.messages.Add(userMessage);
 
         var chatRequest = new ChatRequest(messages, Model.GPT3_5_Turbo);
         var result = await api.ChatEndpoint.GetCompletionAsync(chatRequest);
