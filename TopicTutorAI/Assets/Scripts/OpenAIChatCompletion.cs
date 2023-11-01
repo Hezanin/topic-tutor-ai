@@ -17,21 +17,22 @@ public class OnOpenAIChatResponseEvent : UnityEvent<string> { }
 public class OpenAIChatCompletion : MonoBehaviour
 {
     [SerializeField]
-    private QuizzProperties quizzProperties;
+    private Prompt prompt;
     private OpenAIClient api;
     private List<Message> messages = new List<Message>();
 
     public OnOpenAIChatResponseEvent OnOpenAIChatResponse;
+    public string Response { get; private set; }
 
     public async void PromptGPT3_5Model()
     {
-        Message userMessage = new Message(Role.System, quizzProperties.Prompt);
+        Message userMessage = new Message(Role.System, prompt.Message);
         this.messages.Add(userMessage);
 
         var chatRequest = new ChatRequest(messages, Model.GPT3_5_Turbo);
-        var result = await api.ChatEndpoint.GetCompletionAsync(chatRequest);
+        Response = await api.ChatEndpoint.GetCompletionAsync(chatRequest);
 
-        OnOpenAIChatResponse?.Invoke(result);
+        OnOpenAIChatResponse?.Invoke(Response);
     }
 
     void Start()
