@@ -1,27 +1,38 @@
+using NUnit.Framework;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class ModelResponseParser : MonoBehaviour
+public class Parser : MonoBehaviour
 {
     [SerializeField]
     private Quiz Quiz;
 
+    [SerializeField]
+    private OpenAIChatCompletion openAIChatCompletion;
+
     private MatchCollection matchCollection;
 
     [SerializeField]
-    public void InitMatchCollection(string openAIChatCompletionResponse)
+    public void CreateQuiz()
+    {
+        InitMatchCollection();
+        Parse();
+    }
+
+    private void InitMatchCollection()
     {
         string pattern = @"Question (\d+): (.+)[\r\n]+Option A: (.+)[\r\n]+Option B: (.+)[\r\n]+Option C: (.+)[\r\n]+Option D: (.+)[\r\n]+Answer: (.+)";
         Regex regex = new Regex(pattern);
-
-        Debug.Log($"{openAIChatCompletionResponse}");
-        matchCollection = regex.Matches(openAIChatCompletionResponse);
+        matchCollection = regex.Matches(openAIChatCompletion.Response);
     }
 
-    public void Parse()
+    private void Parse()
     {
         foreach (Match match in matchCollection)
         {
@@ -44,28 +55,15 @@ public class ModelResponseParser : MonoBehaviour
                 Answer = answer
             };
 
-            Quiz.Questions.Add(question);
-        }
-
-        foreach (Question q in Quiz.Questions)
-        {
-            Debug.Log($"Question {q.Number}: {q.Text}");
-            Debug.Log($"Option A: {q.OptionA}");
-            Debug.Log($"Option B: {q.OptionB}");
-            Debug.Log($"Option C: {q.OptionC}");
-            Debug.Log($"Option D: {q.OptionD}");
-            Debug.Log($"Answer: {q.Answer}");
-            Debug.Log("NEXT!");
+            Quiz.Questions.Add(question);          
         }
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         

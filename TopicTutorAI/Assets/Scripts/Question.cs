@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Question : MonoBehaviour
+public class Question
 {
     public int Number { get; set; }
     public string Text { get; set; }
@@ -17,7 +17,6 @@ public class Question : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         
