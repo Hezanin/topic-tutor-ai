@@ -57,6 +57,16 @@ public class Parser : MonoBehaviour
 
             Quiz.Questions.Add(question);          
         }
+
+        foreach (var question in Quiz.Questions)
+        {
+            Debug.Log(question.Text);
+            Debug.Log(question.OptionA);
+            Debug.Log(question.OptionB);
+            Debug.Log(question.OptionC);
+            Debug.Log(question.OptionD);
+            Debug.Log(question.Answer);
+        }
     }
 
     void Start()

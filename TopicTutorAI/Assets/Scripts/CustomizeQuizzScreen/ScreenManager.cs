@@ -9,12 +9,6 @@ public class ScreenManager : MonoBehaviour
 
     [SerializeField]
     private GameObject ToDisable;
-   
-    public void UpdateStatus()
-    {
-        ToDisable.GetComponent<Canvas>().enabled = false;
-        ToEnable.GetComponent<Canvas>().enabled = true;
-    }
 
     // Start is called before the first frame update
     void Start()
@@ -26,5 +20,11 @@ public class ScreenManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void UpdateScreenStatus()
+    {
+        ToDisable.GetComponent<Canvas>().enabled = false;
+        ToEnable.GetComponent<Canvas>().enabled = true;
     }
 }
