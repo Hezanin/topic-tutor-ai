@@ -30,7 +30,8 @@ public class Prompt : MonoBehaviour
             $"numerated unique questions related to the topic of {this.topic.text} " +
             $"with a {this.difficulty.captionText.text} level of difficulty. " +
             $"Each question should have four answers, rated alphabetically, and include" +
-            $" the following prefixes: 'Question 1:', 'Option A:', 'Option B:', 'Option C:', 'Option D:', 'Answer: A'";
+            $"the following prefixes: 'Question 1:', 'Option A:', 'Option B:', 'Option C:', 'Option D:', 'Answer: '." +
+            $"The 'Answer' contains  the text of the correct option.";
     }
 
     void Start()
