@@ -64,9 +64,12 @@ public class QuizManager : MonoBehaviour
             optionB.text = question.OptionB;
             optionC.text = question.OptionC;
             optionD.text = question.OptionD;
-
-            quiz.Questions.RemoveAt(0);
         }       
+    }
+
+    public void DecreaseQuestionCount()
+    {
+        quiz.Questions.RemoveAt(0);
     }
 
     private void OnQuizCompleted()
