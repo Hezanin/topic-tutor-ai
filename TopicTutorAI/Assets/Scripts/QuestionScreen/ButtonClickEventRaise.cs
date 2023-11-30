@@ -12,10 +12,17 @@ public class ButtonClickEventHandler : UnityEvent
 {
 }
 
+public class ButtonClickEventArgs : EventArgs
+{
+    public Button Button { get; set; }
+}
+
 public class ButtonClickEventRaise : MonoBehaviour
 {
     [SerializeField]
     private ButtonClickEventHandler clickEvent;
+
+    public event EventHandler<ButtonClickEventArgs> ClickEventArgs;
 
     [SerializeField]
     private List<Button> buttonList;
@@ -25,7 +32,12 @@ public class ButtonClickEventRaise : MonoBehaviour
     {
         foreach (Button button in buttonList)
         {
+            ButtonClickEventArgs eventArgs = new ButtonClickEventArgs();
+            eventArgs.Button = button;
+
             button.onClick.AddListener(OnButtonClick);
+
+            button.onClick.AddListener(() => OnButtonClickSendButton(eventArgs));
         }
     }
 
@@ -40,4 +52,13 @@ public class ButtonClickEventRaise : MonoBehaviour
         clickEvent?.Invoke();
     }
 
+    private void OnButtonClickSendButton(ButtonClickEventArgs args)
+    {
+        EventHandler<ButtonClickEventArgs> handler = ClickEventArgs;
+
+        if (handler != null)
+        {
+            handler(this, args);
+        }
+    }
 }

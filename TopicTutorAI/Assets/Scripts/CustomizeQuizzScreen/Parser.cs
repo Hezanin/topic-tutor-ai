@@ -65,7 +65,7 @@ public class Parser : MonoBehaviour
             Debug.Log(question.OptionB);
             Debug.Log(question.OptionC);
             Debug.Log(question.OptionD);
-            Debug.Log(question.Answer);
+            Debug.Log($"ANSWER: {question.Answer}");
         }
     }
 

@@ -860,7 +860,7 @@ GameObject:
   - component: {fileID: 171357058}
   - component: {fileID: 171357059}
   m_Layer: 5
-  m_Name: ButtonClickManager
+  m_Name: ButtonClickEventRaise
   m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4034,6 +4034,7 @@ MonoBehaviour:
   - {fileID: 1068087589}
   - {fileID: 1527172993}
   buttonColor: {fileID: 1093873406}
+  buttonClickEventRaise: {fileID: 171357059}
 --- !u!1 &1254687899
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,10 +17,24 @@ public class ButtonValidation : MonoBehaviour
 
     [SerializeField]
     private ButtonColorUI buttonColor;
+
+    [SerializeField]
+    private ButtonClickEventRaise buttonClickEventRaise;
+
     // Start is called before the first frame update
     void Start()
     {
+        buttonClickEventRaise.ClickEventArgs += ValidateClickedButton;
+    }
 
+    private void ValidateClickedButton(object sender, ButtonClickEventArgs e)
+    {
+        string clickedButtonText = e.Button.GetComponentInChildren<TextMeshProUGUI>().text;
+
+        if (!IsCorrect(clickedButtonText))
+        {
+            buttonColor.SetInvalidColor(e.Button);
+        }
     }
 
     // Update is called once per frame
