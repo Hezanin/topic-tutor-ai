@@ -36,7 +36,6 @@ public class ButtonClickEventRaise : MonoBehaviour
             eventArgs.Button = button;
 
             button.onClick.AddListener(OnButtonClick);
-
             button.onClick.AddListener(() => OnButtonClickSendButton(eventArgs));
         }
     }

@@ -16,7 +16,7 @@ public class ButtonValidation : MonoBehaviour
     private List<UnityEngine.UI.Button> buttons;
 
     [SerializeField]
-    private ButtonColorUI buttonColor;
+    private ImageColorUI imageColor;
 
     [SerializeField]
     private ButtonClickEventRaise buttonClickEventRaise;
@@ -31,9 +31,11 @@ public class ButtonValidation : MonoBehaviour
     {
         string clickedButtonText = e.Button.GetComponentInChildren<TextMeshProUGUI>().text;
 
+        UnityEngine.UI.Image buttonImage = e.Button.GetComponentInChildren<UnityEngine.UI.Image>();
+
         if (!IsCorrect(clickedButtonText))
         {
-            buttonColor.SetInvalidColor(e.Button);
+            imageColor.SetInvalidColor(buttonImage);
         }
     }
 
@@ -60,9 +62,11 @@ public class ButtonValidation : MonoBehaviour
         {
             string buttonText = button.GetComponentInChildren<TextMeshProUGUI>().text;
 
+            UnityEngine.UI.Image buttonImage = button.GetComponentInChildren<UnityEngine.UI.Image>();
+
             if (IsCorrect(buttonText))
             {
-                buttonColor.SetValidColor(button);
+                imageColor.SetValidColor(buttonImage);
                 break;
             }
         }

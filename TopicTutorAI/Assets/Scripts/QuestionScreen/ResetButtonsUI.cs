@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class ResetButtonsUI : MonoBehaviour
 {
     [SerializeField]
-    private ButtonColorUI buttonColor;
+    private ImageColorUI ImageColor;
 
     [SerializeField]
     private List<Button> buttons;
@@ -28,7 +28,7 @@ public class ResetButtonsUI : MonoBehaviour
     {
         foreach (Button button in buttons)
         {
-            buttonColor.SetDefaultColor(button);
+            ImageColor.SetDefaultColor(button.GetComponent<Image>());
         }
     }
 }
