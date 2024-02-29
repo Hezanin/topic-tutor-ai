@@ -9,8 +9,11 @@ public class RoomListing : MonoBehaviour
     [SerializeField]
     private TMP_Text text;
 
+    public RoomInfo RoomInfo {  get; private set; }
+
     public void SetRoomInfo(RoomInfo roomInfo)
     {
+        this.RoomInfo = roomInfo;
         this.text.text = $"{roomInfo.Name} / {roomInfo.MaxPlayers}";
     }
 }
