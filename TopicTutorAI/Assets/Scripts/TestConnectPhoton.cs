@@ -10,17 +10,24 @@ public class TestConnectPhoton : MonoBehaviourPunCallbacks
     void Start()
     {
         Debug.Log("Connecting to server");
-        PhotonNetwork.GameVersion = "1.0";
+        PhotonNetwork.GameVersion = MasterManager.GameSettings.GameVersion;
+        PhotonNetwork.NickName = MasterManager.GameSettings.NickName;
         PhotonNetwork.ConnectUsingSettings();
     }
 
     public override void OnConnectedToMaster()
     {
         Debug.Log("Connected");
+        PhotonNetwork.JoinLobby();
     }
 
     public override void OnDisconnected(DisconnectCause cause)
     {
         Debug.Log($"Disconnected {cause.ToString()}");
+    }
+
+    public override void OnJoinedLobby()
+    {
+        Debug.Log("Joined Lobby!");   
     }
 }
