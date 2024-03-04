@@ -11,14 +11,4 @@ public class Question
     public string OptionC { get; set; }
     public string OptionD { get; set; }
     public string Answer { get; set; }
-
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-        
-    }
 }

@@ -11,10 +11,4 @@ public class Quiz : MonoBehaviour
     {
         Questions= new List<Question>();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

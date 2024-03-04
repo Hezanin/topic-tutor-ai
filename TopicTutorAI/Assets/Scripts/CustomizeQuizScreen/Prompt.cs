@@ -33,14 +33,4 @@ public class Prompt : MonoBehaviour
             $"the following prefixes: 'Question 1:', 'Option A:', 'Option B:', 'Option C:', 'Option D:', 'Answer: '." +
             $"The 'Answer' contains  the text of the correct option.";
     }
-
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-        
-    }
 }

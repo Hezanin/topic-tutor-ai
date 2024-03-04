@@ -10,6 +10,9 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
     [SerializeField]
     private TMP_Text roomName;
 
+    [SerializeField]
+    private RoomsCanvases roomsCanvases;
+
     public void OnClick_CreateRoom()
     {
         if (!PhotonNetwork.IsConnected)

@@ -39,9 +39,4 @@ public class OpenAIChatCompletion : MonoBehaviour
     {
         api = new OpenAIClient(OpenAIAuthentication.Default.LoadFromEnvironment());
     }
-
-    void Update()
-    {
-        
-    }
 }

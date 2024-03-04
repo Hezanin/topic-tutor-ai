@@ -14,6 +14,15 @@ public class RoomListingsMenu : MonoBehaviourPunCallbacks
 
     private List<RoomListing> listings = new List<RoomListing>();
 
+    [SerializeField]
+    private RoomsCanvases roomCanvases;
+
+    public override void OnJoinedRoom()
+    {
+        this.roomCanvases.CurrentRoomCanvas.Show();
+        this.roomCanvases.CreateOrJoinRoomCanvas.Hide();
+    }
+
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
         foreach (RoomInfo roomInfo in roomList)

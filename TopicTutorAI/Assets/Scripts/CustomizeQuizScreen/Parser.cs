@@ -68,14 +68,4 @@ public class Parser : MonoBehaviour
             Debug.Log($"ANSWER: {question.Answer}");
         }
     }
-
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
 }
