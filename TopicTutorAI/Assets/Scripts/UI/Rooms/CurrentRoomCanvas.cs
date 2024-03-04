@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class CurrentRoomCanvas : MonoBehaviour
 {
+    [SerializeField]
+    private PlayerListingsMenu playerListingsMenu;
+
+    [SerializeField]
+    private LeaveRoomMenu leaveRoomMenu;
+
     public void Show()
     {
         gameObject.SetActive(true);
