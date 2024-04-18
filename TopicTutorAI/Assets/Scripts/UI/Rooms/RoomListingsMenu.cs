@@ -21,8 +21,8 @@ public class RoomListingsMenu : MonoBehaviourPunCallbacks
     {
         this.roomCanvases.CurrentRoomCanvas.Show();
         this.content.DestroyChildren();
-        this.roomCanvases.CreateOrJoinRoomCanvas.Hide();
         this.listings.Clear();
+        this.roomCanvases.CreateOrJoinRoomCanvas.Hide();     
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)

@@ -3799,7 +3799,7 @@ namespace Photon.Realtime
         /// </remarks>
         /// <param name="debugMessage">Contains a debug message why authentication failed. This has to be fixed during development.</param>
         void OnCustomAuthenticationFailed(string debugMessage);
-
+        void OnEnable();
     }
 
 
@@ -4205,7 +4205,7 @@ namespace Photon.Realtime
     /// While the interfaces of callbacks wrap up the methods that will be called,
     /// the container classes implement a simple way to call a method on all registered objects.
     /// </remarks>
-    public class ConnectionCallbacksContainer : List<IConnectionCallbacks>, IConnectionCallbacks
+    public class ConnectionCallbacksContainer : List<IConnectionCallbacks>
     {
         private readonly LoadBalancingClient client;
 

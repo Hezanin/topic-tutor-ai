@@ -21,12 +21,6 @@ public class QuestionCountUp : MonoBehaviour
         currentQuestionCount = 1;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void DisplayCount()
     {      
         questionCountText.text = $"{currentQuestionCount} out of {totalQuestionsCount}";

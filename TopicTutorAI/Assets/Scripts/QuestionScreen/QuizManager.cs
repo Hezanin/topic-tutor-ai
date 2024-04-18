@@ -18,6 +18,9 @@ public class QuizManager : MonoBehaviour
     public QuestionLoadedEventHandler QuestionLoadedEvent;
 
     [SerializeField]
+    public QuizCanvases quizCanvases;
+
+    [SerializeField]
     private Quiz quiz;
 
     [SerializeField]
@@ -53,6 +56,9 @@ public class QuizManager : MonoBehaviour
 
         if (quiz.Questions.Count == 0)
         {
+            quizCanvases.CustomizeQuizCanvas.Show();
+            quizCanvases.QuizCanvas.Hide();
+
             OnQuizCompleted();
         }
         else

@@ -10,6 +10,8 @@ public class CurrentRoomCanvas : MonoBehaviour
     [SerializeField]
     private LeaveRoomMenu leaveRoomMenu;
 
+    public LeaveRoomMenu LeaveRoomMenu { get { return this.leaveRoomMenu; } }
+
     public void Show()
     {
         gameObject.SetActive(true);

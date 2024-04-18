@@ -47,7 +47,7 @@ namespace Photon.Realtime
     #if PUN_2_OR_NEWER || FUSION_UNITY
 	[AddComponentMenu("")] // hide from Unity Menus and searches
     #endif
-	public class SupportLogger : MonoBehaviour, IConnectionCallbacks , IMatchmakingCallbacks , IInRoomCallbacks, ILobbyCallbacks, IErrorInfoCallback
+	public class SupportLogger : MonoBehaviour , IMatchmakingCallbacks , IInRoomCallbacks, ILobbyCallbacks, IErrorInfoCallback
     #else
 	public class SupportLogger : IConnectionCallbacks, IInRoomCallbacks, IMatchmakingCallbacks , ILobbyCallbacks
     #endif

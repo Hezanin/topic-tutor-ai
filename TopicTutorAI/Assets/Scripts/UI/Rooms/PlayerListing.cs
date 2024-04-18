@@ -10,6 +10,7 @@ public class PlayerListing : MonoBehaviour
     private TMP_Text text;
 
     public Player Player {get; private set;}
+    public bool Ready = false;
 
     public void SetPlayerInfo(Player player)
     {
