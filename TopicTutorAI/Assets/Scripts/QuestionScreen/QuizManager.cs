@@ -20,7 +20,6 @@ public class QuizManager : MonoBehaviour
     [SerializeField]
     public QuizCanvases quizCanvases;
 
-    [SerializeField]
     private Quiz quiz;
 
     [SerializeField]
@@ -48,6 +47,11 @@ public class QuizManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void InitializeQuiz(Quiz quiz)
+    {
+        this.quiz = quiz;
     }
 
     public void LoadQuestion()

@@ -8,21 +8,17 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Parser : MonoBehaviour
+public class QuizParser : MonoBehaviour
 {
     [SerializeField]
-    private Quiz Quiz;
-
-    [SerializeField]
     private OpenAIChatCompletion openAIChatCompletion;
-
     private MatchCollection matchCollection;
 
-    [SerializeField]
-    public void CreateQuiz()
+    public List<Question> Parse()
     {
         InitMatchCollection();
-        Parse();
+
+        return ParseOpenAiChatCompletition();
     }
 
     private void InitMatchCollection()
@@ -32,8 +28,10 @@ public class Parser : MonoBehaviour
         matchCollection = regex.Matches(openAIChatCompletion.Response);
     }
 
-    private void Parse()
+    private List<Question> ParseOpenAiChatCompletition()
     {
+        List<Question> quiz = new();
+
         foreach (Match match in matchCollection)
         {
             int questionNumber = int.Parse(match.Groups[1].Value);
@@ -55,17 +53,19 @@ public class Parser : MonoBehaviour
                 Answer = answer
             };
 
-            Quiz.Questions.Add(question);          
+            quiz.Add(question);          
         }
 
-        foreach (var question in Quiz.Questions)
-        {
-            Debug.Log(question.Text);
-            Debug.Log(question.OptionA);
-            Debug.Log(question.OptionB);
-            Debug.Log(question.OptionC);
-            Debug.Log(question.OptionD);
-            Debug.Log($"ANSWER: {question.Answer}");
-        }
+        //foreach (var question in quiz)
+        //{
+        //    Debug.Log(question.Text);
+        //    Debug.Log(question.OptionA);
+        //    Debug.Log(question.OptionB);
+        //    Debug.Log(question.OptionC);
+        //    Debug.Log(question.OptionD);
+        //    Debug.Log($"ANSWER: {question.Answer}");
+        //}
+
+        return quiz;
     }
 }

@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class QuestionCountUp : MonoBehaviour
 {
-    [SerializeField]
     private Quiz quiz;
 
     [SerializeField]
@@ -13,12 +12,11 @@ public class QuestionCountUp : MonoBehaviour
 
     private int totalQuestionsCount;
 
-    private int currentQuestionCount;
+    private int currentQuestionCount = 1;
 
-    // Start is called before the first frame update
-    void Start()
+    public void InitializeQuiz(Quiz quiz)
     {
-        currentQuestionCount = 1;
+        this.quiz = quiz;
     }
 
     public void DisplayCount()
