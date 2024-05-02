@@ -3,36 +3,42 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class QuestionCountUp : MonoBehaviour
+public class QuizCountUp : MonoBehaviour
 {
+    [SerializeField]
     private Quiz quiz;
 
     [SerializeField]
     private TMP_Text questionCountText;
 
-    private int totalQuestionsCount;
+    private int currentQuestionCount = 0;
 
-    private int currentQuestionCount = 1;
+    private int totalQuestioncount;
 
-    public void InitializeQuiz(Quiz quiz)
-    {
-        this.quiz = quiz;
-    }
+    private bool isTotalQuestionCountSet = false;
 
-    public void DisplayCount()
+    public void SetCount()
     {      
-        questionCountText.text = $"{currentQuestionCount} out of {totalQuestionsCount}";
+        if (!isTotalQuestionCountSet)
+        {
+            this.totalQuestioncount = this.quiz.Questions.Count;
+            isTotalQuestionCountSet = true;
+        }
 
-        currentQuestionCount++;      
+        this.questionCountText.text = $"{this.currentQuestionCount} out of {this.totalQuestioncount}";
+
+        Debug.Log($" current count: {this.currentQuestionCount}, was incremented by 1");
     }
 
-    public void GetQuestionsCount()
+    public void IncreaseCountByOne()
     {
-        totalQuestionsCount = quiz.Questions.Count;
+        this.currentQuestionCount++;
     }
 
     public void ResetCount()
     {
-        currentQuestionCount = 1;
+        this.currentQuestionCount = 0;
+        this.isTotalQuestionCountSet = false;
+        Debug.Log($"count was reset to {this.currentQuestionCount}");
     }
 }

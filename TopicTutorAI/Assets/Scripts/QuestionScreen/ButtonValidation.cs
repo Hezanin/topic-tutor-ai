@@ -1,11 +1,15 @@
+using OpenAI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
+
+public class PlayerAnswerEvent : UnityEvent<bool> { }
 
 public class ButtonValidation : MonoBehaviour
 {
@@ -13,41 +17,24 @@ public class ButtonValidation : MonoBehaviour
     private Quiz quiz;
 
     [SerializeField]
-    private List<UnityEngine.UI.Button> buttons;
+    private List<Button> buttons;
 
     [SerializeField]
-    private ImageColorUI imageColor;
+    private ImageColorUI buttonImageColor;
 
-    [SerializeField]
-    private ButtonClickEventRaise buttonClickEventRaise;
+    public PlayerAnswerEvent PlayerAnswerEvent = new();
 
-    // Start is called before the first frame update
     void Start()
     {
-        buttonClickEventRaise.ClickEventArgs += ValidateClickedButton;
-    }
-
-    private void ValidateClickedButton(object sender, ButtonClickEventArgs e)
-    {
-        string clickedButtonText = e.Button.GetComponentInChildren<TextMeshProUGUI>().text;
-
-        UnityEngine.UI.Image buttonImage = e.Button.GetComponentInChildren<UnityEngine.UI.Image>();
-
-        if (!IsCorrect(clickedButtonText))
+        foreach (Button button in buttons)
         {
-            imageColor.SetInvalidColor(buttonImage);
+            button.onClick.AddListener(() => OnClickValidateButton(button));
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private bool IsCorrectAnswer(string buttonText)
     {
-        
-    }
-
-    private bool IsCorrect(string buttonText)
-    {
-        if (quiz.Questions.ElementAt(0).Answer.IndexOf(buttonText,
+        if (this.quiz.Questions.ElementAt(0).Answer.IndexOf(buttonText,
             StringComparison.OrdinalIgnoreCase) == -1)
         {
             return false;
@@ -56,19 +43,43 @@ public class ButtonValidation : MonoBehaviour
         return true;
     }
 
-    public void Validate()
+    private void OnClickValidateButton(Button button)
+    {
+        string clickedButtonText = button.GetComponentInChildren<TextMeshProUGUI>().text;
+        Image clickedButtonImage = button.GetComponentInChildren<UnityEngine.UI.Image>();
+
+        if (IsCorrectAnswer(clickedButtonText))
+        {
+            this.buttonImageColor.SetValidColor(clickedButtonImage);
+
+            OnPlayerAnswer(true);
+        }
+        else
+        {
+            this.buttonImageColor.SetInvalidColor(clickedButtonImage);
+            ValidateNonClickedButtons();
+
+            OnPlayerAnswer(false);
+        }
+    }
+
+    public void ValidateNonClickedButtons()
     {
         foreach (var button in buttons)
         {
             string buttonText = button.GetComponentInChildren<TextMeshProUGUI>().text;
+            Image buttonImage = button.GetComponentInChildren<UnityEngine.UI.Image>();
 
-            UnityEngine.UI.Image buttonImage = button.GetComponentInChildren<UnityEngine.UI.Image>();
-
-            if (IsCorrect(buttonText))
+            if (IsCorrectAnswer(buttonText))
             {
-                imageColor.SetValidColor(buttonImage);
+                this.buttonImageColor.SetValidColor(buttonImage);
                 break;
             }
         }
+    }
+
+    private void OnPlayerAnswer(bool isValid)
+    {
+        this.PlayerAnswerEvent?.Invoke(isValid);
     }
 }

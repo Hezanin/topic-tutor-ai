@@ -4,26 +4,23 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityStandardAssets.Characters.ThirdPerson.PunDemos;
+
+[System.Serializable]
+public class QuizGeneratedEvent : UnityEvent { }
 
 public class CustomizeQuizManager : MonoBehaviourPunCallbacks
 {
-    [SerializeField]
-    private QuizManager quizManager;
-
-    [SerializeField]
-    private QuestionCountUp questionCountUp;
-
     [SerializeField]
     private Quiz quiz;
 
     [SerializeField]
     private QuizParser parser;
 
-    [SerializeField]
-    private QuizCanvases quizCanvases;
-
     private QuizCustomSerialization quizCustomSerialization;
+
+    public QuizGeneratedEvent QuizGeneratedEvent;
 
     private void Start()
     {
@@ -31,6 +28,12 @@ public class CustomizeQuizManager : MonoBehaviourPunCallbacks
 
         PhotonPeer.RegisterType(typeof(QuizCustomSerialization), (byte)'M',
             QuizCustomSerialization.SerializeQuestions, QuizCustomSerialization.DeserializeQuestions);
+    }
+
+    private void OnQuizGenerated()
+    {
+        Debug.Log("sending game generated event!");
+        this.QuizGeneratedEvent?.Invoke();
     }
 
     public void CreateQuiz()
@@ -51,17 +54,12 @@ public class CustomizeQuizManager : MonoBehaviourPunCallbacks
             this.quiz.Questions = this.parser.Parse();
         }
 
-        UpdateCanvases();
-        InitializeQuiz();
-
-        this.questionCountUp.GetQuestionsCount();
-        this.quizManager.LoadQuestion();
+        OnQuizGenerated();
     }
 
     private void SendQuizToClients()
     {
-        base.photonView.RPC("RPC_ReceiveQuizFromMaster",
-            RpcTarget.AllViaServer,
+        base.photonView.RPC("RPC_ReceiveQuizFromMaster",RpcTarget.AllViaServer,
             QuizCustomSerialization.SerializeQuestions(this.quizCustomSerialization));
     }
 
@@ -73,24 +71,7 @@ public class CustomizeQuizManager : MonoBehaviourPunCallbacks
             this.quizCustomSerialization = (QuizCustomSerialization)QuizCustomSerialization.DeserializeQuestions(data);
             this.quiz.Questions = this.quizCustomSerialization.Questions;
 
-            UpdateCanvases();
-            InitializeQuiz();
-
-            this.questionCountUp.GetQuestionsCount();
-            this.quizManager.LoadQuestion();
+            OnQuizGenerated();          
         }       
-    }
-
-    private void UpdateCanvases()
-    {
-        this.quizCanvases.MultiplayerLoadingCanvas.Hide();
-        this.quizCanvases.CustomizeQuizCanvas.Hide();
-        this.quizCanvases.QuizCanvas.Show();
-    }
-
-    private void InitializeQuiz()
-    {
-        this.questionCountUp.InitializeQuiz(this.quiz);
-        this.quizManager.InitializeQuiz(this.quiz);
     }
 }
