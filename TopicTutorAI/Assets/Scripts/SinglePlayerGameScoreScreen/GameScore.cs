@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameScore : MonoBehaviour
 {
-    private int earnedPoints;
+    private int playerPoints;
     private int totalPoints;
 
     public int TotalPoints
@@ -22,30 +22,27 @@ public class GameScore : MonoBehaviour
             }
         }
     }
-
-    public int EarnedPoints
+    public int PlayerPoints
     {
-        get { return earnedPoints; }
+        get { return playerPoints; }
         set
         {
             if(value >= 0)
             {
-                earnedPoints = value;
+                playerPoints = value;
             }
             else
             {
-                earnedPoints = 0;
+                playerPoints = 0;
             }
         }
     }
 
-    public int Percentage { get; private set; }
+    public int PlayerScorePercentage { get; private set; }
 
     public void SetPercentage()
     {
-        double result = ((double)this.earnedPoints / (double)this.totalPoints) * 100;
-
-        Debug.Log($"resulting percentage: {this.earnedPoints} / {this.totalPoints} = {result}");
-        this.Percentage = (int)result;
+        double result = ((double)this.playerPoints / (double)this.totalPoints) * 100;
+        this.PlayerScorePercentage = (int)result;
     }
 }

@@ -25,7 +25,8 @@ public class QuizCanvases : MonoBehaviourPunCallbacks
         {
             if (!PhotonNetwork.IsMasterClient)
             {
-                this.MultiplayerLoadingCanvas.Show();
+                this.customizeQuizCanvas.Hide();
+                this.multiplayerLoadingCanvas.Show();
             }
         }
     }

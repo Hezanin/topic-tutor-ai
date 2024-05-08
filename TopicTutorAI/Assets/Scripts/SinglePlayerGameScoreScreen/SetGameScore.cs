@@ -5,6 +5,9 @@ using UnityEngine;
 public class SetGameScore : MonoBehaviour
 {
     [SerializeField]
+    private CustomizeQuizManager customizeQuizManager;
+
+    [SerializeField]
     private Quiz quiz;
 
     [SerializeField]
@@ -21,37 +24,39 @@ public class SetGameScore : MonoBehaviour
 
     private void Start()
     {
+        this.customizeQuizManager.QuizGeneratedEvent.AddListener(CustomizeQuizManager_QuizGeneratedEvent);
         this.buttonValidation.PlayerAnswerEvent.AddListener(ButtonValidation_PlayerAnswerEvent);
         this.quizLoader.QuizCompletedEvent.AddListener(QuizLoader_QuizCompletedEvent);
     }
 
-    public void SetTotalGamePointsScore()
+    private void ResetScore()
+    {
+        this.gameScore.PlayerPoints = 0;
+    }
+
+    private void SetTotalGamePointsScore()
     {
         this.gameScore.TotalPoints = this.quiz.Questions.Count;
+    }
+
+    private void CustomizeQuizManager_QuizGeneratedEvent()
+    {
+        SetTotalGamePointsScore();
+        ResetScore();
     }
 
     private void ButtonValidation_PlayerAnswerEvent(bool playerAnswerIsValid)
     {
         if (playerAnswerIsValid) 
         {
-            this.gameScore.EarnedPoints += 1;
-            Debug.Log("earned 1 point");
+            this.gameScore.PlayerPoints += 1;
         }     
     }
 
     private void QuizLoader_QuizCompletedEvent()
     {
         this.gameScore.SetPercentage();
-
-        Debug.Log($"earned points: {this.gameScore.EarnedPoints}, total points:" +
-            $" {this.gameScore.TotalPoints}, percentage: {this.gameScore.Percentage}");
-
-        this.setGameScorePopUp.SetScoreUI(this.gameScore.EarnedPoints, 
-            this.gameScore.TotalPoints, this.gameScore.Percentage);
-    }
-
-    public void ResetScore()
-    {
-        this.gameScore.EarnedPoints = 0;
+        this.setGameScorePopUp.SetScoreUI(this.gameScore.PlayerPoints, 
+            this.gameScore.TotalPoints, this.gameScore.PlayerScorePercentage);
     }
 }

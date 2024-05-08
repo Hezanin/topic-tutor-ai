@@ -13,6 +13,9 @@ public class QuizGeneratedEvent : UnityEvent { }
 public class CustomizeQuizManager : MonoBehaviourPunCallbacks
 {
     [SerializeField]
+    private QuizCanvases quizCanvases;
+
+    [SerializeField]
     private Quiz quiz;
 
     [SerializeField]
@@ -32,7 +35,6 @@ public class CustomizeQuizManager : MonoBehaviourPunCallbacks
 
     private void OnQuizGenerated()
     {
-        Debug.Log("sending game generated event!");
         this.QuizGeneratedEvent?.Invoke();
     }
 
@@ -54,6 +56,7 @@ public class CustomizeQuizManager : MonoBehaviourPunCallbacks
             this.quiz.Questions = this.parser.Parse();
         }
 
+        this.quizCanvases.CustomizeQuizCanvas.Hide();
         OnQuizGenerated();
     }
 
@@ -71,6 +74,8 @@ public class CustomizeQuizManager : MonoBehaviourPunCallbacks
             this.quizCustomSerialization = (QuizCustomSerialization)QuizCustomSerialization.DeserializeQuestions(data);
             this.quiz.Questions = this.quizCustomSerialization.Questions;
 
+            this.quizCanvases.CustomizeQuizCanvas.Hide();
+            this.quizCanvases.MultiplayerLoadingCanvas.Hide();
             OnQuizGenerated();          
         }       
     }

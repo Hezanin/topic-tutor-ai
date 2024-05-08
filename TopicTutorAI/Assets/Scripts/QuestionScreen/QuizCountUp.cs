@@ -11,7 +11,7 @@ public class QuizCountUp : MonoBehaviour
     [SerializeField]
     private TMP_Text questionCountText;
 
-    private int currentQuestionCount = 0;
+    private int currentQuestionCount = 1;
 
     private int totalQuestioncount;
 
@@ -26,18 +26,18 @@ public class QuizCountUp : MonoBehaviour
         }
 
         this.questionCountText.text = $"{this.currentQuestionCount} out of {this.totalQuestioncount}";
-
-        Debug.Log($" current count: {this.currentQuestionCount}, was incremented by 1");
+        Debug.Log($" current count: {this.currentQuestionCount}");
     }
 
     public void IncreaseCountByOne()
     {
         this.currentQuestionCount++;
+        Debug.Log($" increased current count ({this.currentQuestionCount}) by 1");
     }
 
     public void ResetCount()
     {
-        this.currentQuestionCount = 0;
+        this.currentQuestionCount = 1;
         this.isTotalQuestionCountSet = false;
         Debug.Log($"count was reset to {this.currentQuestionCount}");
     }
