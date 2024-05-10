@@ -441,8 +441,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 255.53, y: 49.929}
+  m_AnchoredPosition: {x: 0.7609863, y: 0}
+  m_SizeDelta: {x: 260.0953, y: 49.929}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5690374048930715166
 MonoBehaviour:
@@ -514,3 +514,4 @@ MonoBehaviour:
   playerName: {fileID: 6783708892347947753}
   playerScore: {fileID: 3872109246755415961}
   playerPercentage: {fileID: 9104758227723430055}
+  rawImageBackground: {fileID: 7615052054671935829}

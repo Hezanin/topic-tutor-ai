@@ -7,16 +7,13 @@ using UnityEngine.UI;
 public class ResetButtonsUI : MonoBehaviour
 {
     [SerializeField]
-    private ImageColorUI ImageColor;
-
-    [SerializeField]
     private List<Button> buttons;
 
     public void ResetButtonsUIColors()
     {
         foreach (Button button in buttons)
         {
-            ImageColor.SetDefaultColor(button.GetComponent<Image>());
+            button.GetComponent<Image>().color = ColorUI.defaultColor;
         }
     }
 }

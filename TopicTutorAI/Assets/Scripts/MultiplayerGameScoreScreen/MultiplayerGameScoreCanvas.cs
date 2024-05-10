@@ -4,15 +4,34 @@ using UnityEngine;
 
 public class MultiplayerGameScoreCanvas : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private CanvasGroup canvasGroup;
+
+    private void Start()
     {
-        
+        canvasGroup = GetComponent<CanvasGroup>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Show()
     {
-        
+        if (canvasGroup == null)
+        {
+            canvasGroup = GetComponent<CanvasGroup>();
+        }
+
+        canvasGroup.interactable = true;
+        canvasGroup.alpha = 1;
+        canvasGroup.blocksRaycasts = true;
+    }
+
+    public void Hide()
+    {
+        if (canvasGroup == null)
+        {
+            canvasGroup = GetComponent<CanvasGroup>();
+        }
+
+        canvasGroup.interactable = false;
+        canvasGroup.alpha = 0;
+        canvasGroup.blocksRaycasts = false;
     }
 }

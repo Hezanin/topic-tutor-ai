@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts.Utilities
 {
-    [System.Serializable]
-    public class GameScoreCustomSerialization
+    public static class RoomCustomPropertyKey
     {
-
+        public const string TotalScore = "TotalScore";
     }
 }

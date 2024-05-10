@@ -15,7 +15,7 @@ public class QuizCustomSerialization
 {
     public List<Question> Questions = new List<Question>();
 
-    public static byte[] SerializeQuestions(object obj)
+    public static byte[] Serialize(object obj)
     {
         QuizCustomSerialization quizCustomSerialization = (QuizCustomSerialization)obj;
 
@@ -39,7 +39,7 @@ public class QuizCustomSerialization
         }
     }
 
-    public static object DeserializeQuestions(byte[] binaryData)
+    public static object Deserialize(byte[] binaryData)
     {
         QuizCustomSerialization quizCustomSerialization = new();
 

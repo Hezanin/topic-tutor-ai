@@ -1,9 +1,15 @@
+using Assets.Scripts.Utilities;
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Characters.ThirdPerson.PunDemos;
 
 public class SetGameScore : MonoBehaviour
 {
+    [SerializeField]
+    public QuizCanvases quizCanvases;
+
     [SerializeField]
     private CustomizeQuizManager customizeQuizManager;
 
@@ -22,6 +28,9 @@ public class SetGameScore : MonoBehaviour
     [SerializeField]
     private GameScorePopUp setGameScorePopUp;
 
+    [SerializeField]
+    private ScoreListingMenu scoreListingMenu;
+
     private void Start()
     {
         this.customizeQuizManager.QuizGeneratedEvent.AddListener(CustomizeQuizManager_QuizGeneratedEvent);
@@ -29,7 +38,7 @@ public class SetGameScore : MonoBehaviour
         this.quizLoader.QuizCompletedEvent.AddListener(QuizLoader_QuizCompletedEvent);
     }
 
-    private void ResetScore()
+    private void ResetPlayerScore()
     {
         this.gameScore.PlayerPoints = 0;
     }
@@ -42,7 +51,22 @@ public class SetGameScore : MonoBehaviour
     private void CustomizeQuizManager_QuizGeneratedEvent()
     {
         SetTotalGamePointsScore();
-        ResetScore();
+        ResetPlayerScore();
+
+        if (PhotonNetwork.IsConnected)
+        {
+            if (!RoomCustomPropertyManager.AddCustomProperty(
+                    RoomCustomPropertyKey.TotalScore, this.gameScore.TotalPoints))
+            {
+                Debug.LogError("Failed to add room custom property");
+            }
+
+            if (!PlayerCustomPropertyManager.AddCustomProperty(
+                PlayerCustomPropertyKey.Score, this.gameScore.PlayerPoints))
+            {
+                Debug.LogError("Failed to add custom player property");
+            }
+        }    
     }
 
     private void ButtonValidation_PlayerAnswerEvent(bool playerAnswerIsValid)
@@ -56,7 +80,24 @@ public class SetGameScore : MonoBehaviour
     private void QuizLoader_QuizCompletedEvent()
     {
         this.gameScore.SetPercentage();
-        this.setGameScorePopUp.SetScoreUI(this.gameScore.PlayerPoints, 
-            this.gameScore.TotalPoints, this.gameScore.PlayerScorePercentage);
+
+        if (PhotonNetwork.IsConnected)
+        {
+            if (!PlayerCustomPropertyManager.AddCustomProperty(
+                PlayerCustomPropertyKey.Score, this.gameScore.PlayerPoints))
+            {
+                Debug.LogError("Failed to add custom player property");
+            }           
+
+            this.scoreListingMenu.GetCurrentRoomPlayers();
+            this.quizCanvases.MultiplayerGameScoreCanvas.Show();
+        }
+        else
+        {
+            this.setGameScorePopUp.SetScoreUI(this.gameScore.PlayerPoints,
+                this.gameScore.TotalPoints, this.gameScore.PlayerScorePercentage);
+
+            this.quizCanvases.SingleplayerGameScoreCanvas.Show();
+        }       
     }
 }

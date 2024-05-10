@@ -19,9 +19,6 @@ public class ButtonValidation : MonoBehaviour
     [SerializeField]
     private List<Button> buttons;
 
-    [SerializeField]
-    private ImageColorUI buttonImageColor;
-
     public PlayerAnswerEvent PlayerAnswerEvent = new();
 
     void Start()
@@ -50,13 +47,14 @@ public class ButtonValidation : MonoBehaviour
 
         if (IsCorrectAnswer(clickedButtonText))
         {
-            this.buttonImageColor.SetValidColor(clickedButtonImage);
+            clickedButtonImage.color = ColorUI.validColor;
 
             OnPlayerAnswer(true);
         }
         else
         {
-            this.buttonImageColor.SetInvalidColor(clickedButtonImage);
+            clickedButtonImage.color = ColorUI.invalidColor;
+
             ValidateNonClickedButtons();
 
             OnPlayerAnswer(false);
@@ -72,7 +70,7 @@ public class ButtonValidation : MonoBehaviour
 
             if (IsCorrectAnswer(buttonText))
             {
-                this.buttonImageColor.SetValidColor(buttonImage);
+                buttonImage.color = ColorUI.validColor;
                 break;
             }
         }

@@ -958,9 +958,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 440351554}
   m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!114 &440351558
 MonoBehaviour:
@@ -991,12 +991,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1080, y: 1920}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -1967,7 +1967,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1208594363}
   - {fileID: 991565331}
   - {fileID: 1568853231}
   - {fileID: 1740037021}
@@ -2659,7 +2658,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.0010000927}
+  m_AnchoredPosition: {x: 0, y: 0.000011515934}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &912599459
@@ -3799,9 +3798,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2129058360}
-        m_TargetAssemblyTypeName: SingleplayerGameScoreCanvas, Assembly-CSharp
+      - m_Target: {fileID: 440351556}
+        m_TargetAssemblyTypeName: MultiplayerGameScoreCanvas, Assembly-CSharp
         m_MethodName: Hide
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1580752161}
+        m_TargetAssemblyTypeName: CustomizeQuizCanvas, Assembly-CSharp
+        m_MethodName: Show
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3849,53 +3860,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1202435910}
   m_CullTransparentMesh: 1
---- !u!1 &1208594362
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1208594363}
-  - component: {fileID: 1208594364}
-  m_Layer: 0
-  m_Name: ImageColorUI
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1208594363
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1208594362}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 677259234}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1208594364
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1208594362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c04e6ab1b63a09a44a2eda0b78d0e7ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  invalidColor: {r: 1, g: 0.38431373, b: 0.3137255, a: 1}
-  validColor: {r: 0.5882353, g: 1, b: 0.5137255, a: 1}
-  defaultColor: {r: 0.09019608, g: 0.48235294, b: 0.7921569, a: 1}
 --- !u!1 &1272792940
 GameObject:
   m_ObjectHideFlags: 0
@@ -3929,6 +3893,7 @@ MonoBehaviour:
   quizCanvas: {fileID: 677259230}
   multiplayerLoadingCanvas: {fileID: 1585349156}
   singleplayerGameScoreCanvas: {fileID: 2129058360}
+  multiplayerGameScoreCanvas: {fileID: 440351556}
 --- !u!4 &1272792942
 Transform:
   m_ObjectHideFlags: 0
@@ -4206,7 +4171,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eee43285020096448b47b9cde95fd4dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ImageColor: {fileID: 1208594364}
   buttons:
   - {fileID: 1740037018}
   - {fileID: 431698132}
@@ -4478,7 +4442,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1580752156}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -4658,12 +4622,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2871f992496958a4f8563bbc7265c98c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  quizCanvases: {fileID: 1272792941}
   customizeQuizManager: {fileID: 725725623}
   quiz: {fileID: 858617334}
   quizLoader: {fileID: 1067985767}
   buttonValidation: {fileID: 1725590430}
   gameScore: {fileID: 852603584}
   setGameScorePopUp: {fileID: 1100858626}
+  scoreListingMenu: {fileID: 1938636753}
 --- !u!1 &1725590428
 GameObject:
   m_ObjectHideFlags: 0
@@ -4718,7 +4684,6 @@ MonoBehaviour:
   - {fileID: 431698132}
   - {fileID: 1749687311}
   - {fileID: 602165555}
-  buttonImageColor: {fileID: 1208594364}
 --- !u!1 &1733068292
 GameObject:
   m_ObjectHideFlags: 0
@@ -5484,6 +5449,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1580752161}
+        m_TargetAssemblyTypeName: CustomizeQuizCanvas, Assembly-CSharp
+        m_MethodName: Show
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1831019482
 GameObject:
   m_ObjectHideFlags: 0
@@ -5797,8 +5774,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8158f106e711e6543b5bb9113a33b4fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreListing: {fileID: 6544174208010840145, guid: cdfa9d428aa4cf64e896b9d26368e6c1, type: 3}
   content: {fileID: 912599458}
-  scoreListing: {fileID: 7972978039373726504, guid: cdfa9d428aa4cf64e896b9d26368e6c1, type: 3}
 --- !u!1 &1942640001
 GameObject:
   m_ObjectHideFlags: 0

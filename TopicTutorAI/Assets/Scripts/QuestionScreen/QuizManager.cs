@@ -1,3 +1,4 @@
+using Assets.Scripts.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,7 +43,5 @@ public class QuizManager : MonoBehaviour
     {
         this.quiz.Questions.Clear();
         this.quizCanvases.QuizCanvas.Hide();
-        this.quizCanvases.CustomizeQuizCanvas.Show();
-        this.quizCanvases.SingleplayerGameScoreCanvas.Show();
     }
 }

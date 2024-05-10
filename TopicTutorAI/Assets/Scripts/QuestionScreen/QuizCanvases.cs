@@ -13,11 +13,14 @@ public class QuizCanvases : MonoBehaviourPunCallbacks
     private MultiplayerLoadingCanvas multiplayerLoadingCanvas;
     [SerializeField]
     private SingleplayerGameScoreCanvas singleplayerGameScoreCanvas;
+    [SerializeField]
+    private MultiplayerGameScoreCanvas multiplayerGameScoreCanvas;
 
     public CustomizeQuizCanvas CustomizeQuizCanvas { get { return customizeQuizCanvas; } }
     public QuizCanvas QuizCanvas { get { return quizCanvas; } }
     public MultiplayerLoadingCanvas MultiplayerLoadingCanvas { get { return multiplayerLoadingCanvas; } }
     public SingleplayerGameScoreCanvas SingleplayerGameScoreCanvas { get { return singleplayerGameScoreCanvas; } }
+    public MultiplayerGameScoreCanvas MultiplayerGameScoreCanvas { get { return multiplayerGameScoreCanvas; }}
 
     private void Start()
     {

@@ -30,7 +30,7 @@ public class CustomizeQuizManager : MonoBehaviourPunCallbacks
         this.quizCustomSerialization = new QuizCustomSerialization();
 
         PhotonPeer.RegisterType(typeof(QuizCustomSerialization), (byte)'M',
-            QuizCustomSerialization.SerializeQuestions, QuizCustomSerialization.DeserializeQuestions);
+            QuizCustomSerialization.Serialize, QuizCustomSerialization.Deserialize);
     }
 
     private void OnQuizGenerated()
@@ -63,7 +63,7 @@ public class CustomizeQuizManager : MonoBehaviourPunCallbacks
     private void SendQuizToClients()
     {
         base.photonView.RPC("RPC_ReceiveQuizFromMaster",RpcTarget.AllViaServer,
-            QuizCustomSerialization.SerializeQuestions(this.quizCustomSerialization));
+            QuizCustomSerialization.Serialize(this.quizCustomSerialization));
     }
 
     [PunRPC]
@@ -71,7 +71,7 @@ public class CustomizeQuizManager : MonoBehaviourPunCallbacks
     {        
         if(!PhotonNetwork.IsMasterClient)
         {
-            this.quizCustomSerialization = (QuizCustomSerialization)QuizCustomSerialization.DeserializeQuestions(data);
+            this.quizCustomSerialization = (QuizCustomSerialization)QuizCustomSerialization.Deserialize(data);
             this.quiz.Questions = this.quizCustomSerialization.Questions;
 
             this.quizCanvases.CustomizeQuizCanvas.Hide();
