@@ -17,8 +17,6 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
-        Debug.Log("Connected");
-
         if (!PhotonNetwork.InLobby)
         {
             PhotonNetwork.JoinLobby();
