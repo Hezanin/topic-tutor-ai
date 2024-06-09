@@ -10,12 +10,15 @@ public class Canvases : MonoBehaviour
     [SerializeField]
     private RegisterAccountCanvas registerAccountCanvas;
 
-    public LoginAccountCanvas LoginAccount {  get { return loginAccountCanvas; } }
-    public RegisterAccountCanvas RegisterAccount { get { return registerAccountCanvas; } }
+    [SerializeField]
+    private ErrorHandlingCanvas errorHandlingCanvas;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    AccountRecoveryCanvas accountRecoveryCanvas;
+
+    public LoginAccountCanvas LoginAccountCanvas {  get { return loginAccountCanvas; } }
+    public RegisterAccountCanvas RegisterAccountCanvas { get { return registerAccountCanvas; } }
+    public ErrorHandlingCanvas ErrorHandlingCanvas { get {  return errorHandlingCanvas; } }
+    public AccountRecoveryCanvas AccountRecoveryCanvas { get { return accountRecoveryCanvas;} }
+
 }

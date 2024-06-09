@@ -15,15 +15,20 @@ public class QuizCanvases : MonoBehaviourPunCallbacks
     private SingleplayerGameScoreCanvas singleplayerGameScoreCanvas;
     [SerializeField]
     private MultiplayerGameScoreCanvas multiplayerGameScoreCanvas;
+    [SerializeField]
+    private CloseToMenuCanvas closeToMenuCanvas;
 
     public CustomizeQuizCanvas CustomizeQuizCanvas { get { return customizeQuizCanvas; } }
     public QuizCanvas QuizCanvas { get { return quizCanvas; } }
     public MultiplayerLoadingCanvas MultiplayerLoadingCanvas { get { return multiplayerLoadingCanvas; } }
     public SingleplayerGameScoreCanvas SingleplayerGameScoreCanvas { get { return singleplayerGameScoreCanvas; } }
     public MultiplayerGameScoreCanvas MultiplayerGameScoreCanvas { get { return multiplayerGameScoreCanvas; }}
+    public CloseToMenuCanvas CloseToMenuCanvas { get { return closeToMenuCanvas; } }
 
     private void Start()
     {
+        this.closeToMenuCanvas.Show();
+
         if(PhotonNetwork.IsConnected)
         {
             if (!PhotonNetwork.IsMasterClient)
