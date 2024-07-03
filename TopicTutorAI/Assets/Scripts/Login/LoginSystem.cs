@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using TMPro;
 using UnityEngine;
 using PlayFab;
 using UnityEngine.UI;
 using System;
 using PlayFab.ClientModels;
-using UnityEditor.PackageManager;
 using UnityEngine.SceneManagement;
 
 public class LoginSystem : MonoBehaviour
@@ -86,6 +84,18 @@ public class LoginSystem : MonoBehaviour
 
     private void OnLoginSucces(LoginResult result)
     {
+        if (PlayerPlayfabProfile.Instance != null)
+        {
+            PlayerPlayfabProfile.Instance.GetPlayerProfile();
+            PlayerPlayfabProfile.Instance.GetLeaderboard();
+            PlayerPlayfabProfile.Instance.GetPlayerLeaderboardScore();
+        }
+        else
+        {
+            Debug.LogError("Player information could  not be retrieved");
+            return;
+        }
+
         SceneManager.LoadScene("Menu", LoadSceneMode.Single);
     }
 }

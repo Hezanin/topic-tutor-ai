@@ -29,6 +29,12 @@ public class ScoreListing : MonoBehaviourPunCallbacks
     {
         this.playerName.text = player.NickName;
 
+        if (!PhotonNetwork.IsConnected || !PhotonNetwork.InRoom)
+        {
+            Debug.LogError("Cannot SetScoreListingInfo");
+            return;
+        }
+
         if (PhotonNetwork.CurrentRoom.
             CustomProperties.ContainsKey(RoomCustomPropertyKey.TotalScore))
         {

@@ -4,6 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.Characters.ThirdPerson.PunDemos;
+using PlayFab;
+using Unity.VisualScripting;
+using PlayFab.ClientModels;
+using System;
 
 public class SetGameScore : MonoBehaviour
 {
@@ -81,6 +85,8 @@ public class SetGameScore : MonoBehaviour
     {
         this.gameScore.SetPercentage();
 
+        SendLeaderboard();
+
         if (PhotonNetwork.IsConnected)
         {
             if (!PlayerCustomPropertyManager.AddCustomProperty(
@@ -99,5 +105,33 @@ public class SetGameScore : MonoBehaviour
 
             this.quizCanvases.SingleplayerGameScoreCanvas.Show();
         }       
+    }
+
+    private void SendLeaderboard()
+    {
+        UpdatePlayerStatisticsRequest playerStatistic = new()
+        {
+            Statistics = new List<StatisticUpdate>
+            {
+                new StatisticUpdate
+                {
+                    StatisticName = "GlobalScore",
+                    Value = this.gameScore.PlayerPoints
+                }
+            }
+        };
+
+        PlayFabClientAPI.UpdatePlayerStatistics(playerStatistic, OnLeaderboardUpdateSuccess, OnLeaderboardUpdateError);
+    }
+
+    private void OnLeaderboardUpdateError(PlayFabError error)
+    {
+        Debug.Log($"ERROR updating leaderboard! - {error.ErrorMessage}");
+        
+    }
+
+    private void OnLeaderboardUpdateSuccess(UpdatePlayerStatisticsResult result)
+    {
+        Debug.Log("Successfully updated leaderboar!");
     }
 }

@@ -8,11 +8,17 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
 {
     void Start()
     {
+        SetUserNickname();
+
         Debug.Log("Connecting to server");
+
         PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.GameVersion = MasterManager.GameSettings.GameVersion;
-        PhotonNetwork.NickName = MasterManager.GameSettings.NickName;
-        PhotonNetwork.ConnectUsingSettings();
+
+        if (!PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.ConnectUsingSettings();
+        }       
     }
 
     public override void OnConnectedToMaster()
@@ -31,5 +37,17 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
     public override void OnJoinedLobby()
     {
         Debug.Log("Joined Lobby!");   
+    }
+
+    private void SetUserNickname()
+    {
+        if (PlayerPlayfabProfile.Instance == null)
+        {
+            Debug.LogError("PlayerProfile is null and cannot retrieve nickname");
+        }
+        else
+        {
+            PhotonNetwork.NickName = PlayerPlayfabProfile.Instance.Profile.DisplayName;
+        }
     }
 }

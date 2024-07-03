@@ -1,10 +1,11 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class CloseToMenu : MonoBehaviour
+public class CloseToMenu : MonoBehaviourPunCallbacks
 {
     [SerializeField]
     private Button closeButton;
@@ -16,6 +17,25 @@ public class CloseToMenu : MonoBehaviour
 
     private void closeButton_OnClick()
     {
-        SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+        if (PhotonNetwork.IsConnected)
+        {
+            LeaveRoom();
+        }
+        else
+        {
+            SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+        }     
+    }
+
+    public void LeaveRoom()
+    {
+        PhotonNetwork.LeaveRoom();
+    }
+
+    public override void OnLeftRoom()
+    {
+        SceneManager.LoadScene("Multiplayer", LoadSceneMode.Single);
+
+        base.OnLeftRoom();
     }
 }

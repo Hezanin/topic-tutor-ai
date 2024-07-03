@@ -1,10 +1,12 @@
 using Newtonsoft.Json.Bson;
 using Photon.Pun;
 using Photon.Realtime;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class PlayerListingsMenu : MonoBehaviourPunCallbacks
 {
@@ -22,7 +24,34 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
     [SerializeField]
     private RoomsCanvases roomCanvases;
 
+    [SerializeField]
+    private UnityEngine.UI.Toggle readyUpToggle;
+
     private bool ready = false;
+
+    private void Start()
+    {
+        if (readyUpToggle != null)
+        {
+            if(PhotonNetwork.IsMasterClient)
+            {
+                SetToggleVisibility(false);
+            }
+
+            readyUpToggle.onValueChanged.AddListener(delegate { ToggleValueChanged(readyUpToggle); });
+        }
+    }
+
+    private void SetToggleVisibility(bool isVisible)
+    {
+        this.readyUpToggle.gameObject.SetActive(isVisible);
+    }
+
+    void ToggleValueChanged(UnityEngine.UI.Toggle change)
+    {
+        this.ready = change.isOn;
+    }
+
     private void SetReadyUp(bool state)
     {
         this.ready = state;
@@ -37,11 +66,23 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
         }
     }
 
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        for (int i = 0; i < this.listings.Count; i++)
+        {
+            Destroy(this.listings[i].gameObject);
+        }
+
+        this.listings.Clear();
+
+        GetCurrentRoomPlayers();
+    }
+
     public override void OnEnable()
     {
         base.OnEnable();
         SetReadyUp(false);
-        GetCurrentRoomPlayers();   
+        GetCurrentRoomPlayers();  
     }
 
     public override void OnDisable()
@@ -120,7 +161,7 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
 
             PhotonNetwork.CurrentRoom.IsOpen = false;
             PhotonNetwork.CurrentRoom.IsVisible = false; 
-            PhotonNetwork.LoadLevel(1);
+            PhotonNetwork.LoadLevel("Game");
         }
     }
 

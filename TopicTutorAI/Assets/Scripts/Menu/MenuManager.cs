@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MenuManager : MonoBehaviour
+public class MenuNavigationManager : MonoBehaviour
 {
     [SerializeField]
     private Button singleplayerModeButton;

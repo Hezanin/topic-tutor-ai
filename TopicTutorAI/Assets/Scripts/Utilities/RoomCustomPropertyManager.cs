@@ -13,7 +13,7 @@ namespace Assets.Scripts.Utilities
 
         public static bool AddCustomProperty<T>(string key, T value) where T : struct
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || !PhotonNetwork.IsConnected)
             {
                 return false;
             }
@@ -25,7 +25,7 @@ namespace Assets.Scripts.Utilities
 
         public static bool RemoveCustomProperty(string key)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || !PhotonNetwork.IsConnected)
             {
                 return false;
             }
